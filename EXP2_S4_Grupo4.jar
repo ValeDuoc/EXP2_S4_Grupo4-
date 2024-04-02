@@ -1,0 +1,75 @@
+import java.util.Scanner;
+
+public class SistemaVentaEntradas {
+    // Definir las tarifas para cada tipo de entrada
+    static double tarifaVIPEstudiante = 13000;
+    static double tarifaVIPPublicoGeneral = 25000;
+    static double tarifaPlateaBajaEstudiante = 10000;
+    static double tarifaPlateaBajaPublicoGeneral = 19000;
+    static double tarifaPlateaAltaEstudiante = 9000;
+    static double tarifaPlateaAltaPublicoGeneral = 11000;
+    static double tarifaPalcosEstudiante = 6500;
+    static double tarifaPalcosPublicoGeneral = 7200;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bienvenido al Sistema de Venta de Entradas del Teatro Moro");
+
+        while (true) {
+            System.out.println("\nSeleccione el tipo de entrada:");
+            System.out.println("1. VIP");
+            System.out.println("2. Platea Baja");
+            System.out.println("3. Platea Alta");
+            System.out.println("4. Palcos");
+            System.out.println("5. Salir");
+
+            int opcion = scanner.nextInt();
+            if (opcion == 5) {
+                System.out.println("Gracias por usar el Sistema de Venta de Entradas. ¡Hasta luego!");
+                break;
+            }
+
+            System.out.println("¿Es usted estudiante? (Sí/No)");
+            String respuesta = scanner.next();
+            boolean esEstudiante = respuesta.equalsIgnoreCase("Sí");
+
+            switch (opcion) {
+                case 1:
+                    venderEntrada("VIP", esEstudiante);
+                    break;
+                case 2:
+                    venderEntrada("Platea Baja", esEstudiante);
+                    break;
+                case 3:
+                    venderEntrada("Platea Alta", esEstudiante);
+                    break;
+                case 4:
+                    venderEntrada("Palcos", esEstudiante);
+                    break;
+                default:
+                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+            }
+        }
+        scanner.close();
+    }
+
+    static void venderEntrada(String tipoEntrada, boolean esEstudiante) {
+        double precio;
+        if (tipoEntrada.equals("VIP")) {
+            precio = esEstudiante ? tarifaVIPEstudiante : tarifaVIPPublicoGeneral;
+        } else if (tipoEntrada.equals("Platea Baja")) {
+            precio = esEstudiante ? tarifaPlateaBajaEstudiante : tarifaPlateaBajaPublicoGeneral;
+        } else if (tipoEntrada.equals("Platea Alta")) {
+            precio = esEstudiante ? tarifaPlateaAltaEstudiante : tarifaPlateaAltaPublicoGeneral;
+        } else if (tipoEntrada.equals("Palcos")) {
+            precio = esEstudiante ? tarifaPalcosEstudiante : tarifaPalcosPublicoGeneral;
+        } else {
+            System.out.println("Tipo de entrada no válido.");
+            return;
+        }
+
+        String tipoCliente = esEstudiante ? "Estudiante" : "Público general";
+        System.out.println("Ha comprado una entrada para " + tipoEntrada + ". Tipo de cliente: " + tipoCliente + ". Precio: $" + precio);
+    }
+}
